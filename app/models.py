@@ -3,6 +3,8 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import login
+from hashlib import md5
+import dns.resolver
 
 
 class User(UserMixin, db.Model):
@@ -17,6 +19,19 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+    def avatar(self, size):
+        email = self.email.lower()
+        print(email)
+        domain=email.split('@')[1]
+        try:
+            answers = dns.resolver.query('_avatars._tcp.' + domain, 'SRV')
+            baseurl = 'http://' + str(answers[0].target) + '/avatar/'
+        except:
+            baseurl = 'http://cdn.libravatar.org/avatar/'
+        hash=md5((email.strip().lower()).encode('utf-8')).hexdigest()
+        
+        return baseurl+hash+'?s='+size
 
     def __repr__(self):
         return '<User {} email {}>'.format(self.username,self.email) 
