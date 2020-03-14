@@ -49,6 +49,7 @@
     <Content Include="app\Templates\layout.html" />
     <Content Include="app\Templates\login.html" />
     <Content Include="app\Templates\register.html" />
+    <Content Include="app\Templates\user.html" />
     <Content Include="requirements.txt" />
   </ItemGroup>
   <ItemGroup>
