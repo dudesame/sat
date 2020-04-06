@@ -21,17 +21,9 @@ class User(UserMixin, db.Model):
         return check_password_hash(self.password_hash, password)
 
     def avatar(self, size):
-        email = self.email.lower()
-        print(email)
-        domain=email.split('@')[1]
-        try:
-            answers = dns.resolver.query('_avatars._tcp.' + domain, 'SRV')
-            baseurl = 'http://' + str(answers[0].target) + '/avatar/'
-        except:
-            baseurl = 'http://cdn.libravatar.org/avatar/'
-        hash=md5((email.strip().lower()).encode('utf-8')).hexdigest()
-        
-        return baseurl+hash+'?s='+size
+            digest = md5(self.email.lower().encode('utf-8')).hexdigest()
+            return 'https://www.gravatar.com/avatar/{}?d=identicon&s={}'.format(
+                    digest, size)
 
     def __repr__(self):
         return '<User {} email {}>'.format(self.username,self.email) 
