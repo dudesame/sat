@@ -8,17 +8,18 @@
     {% endif %}
 </head>
 <body>
-    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
     <div>
         Microblog:
-        <a href="{{ url_for('index') }}">Home</a>
-        <a href="{{ url_for('explore') }}">Explore</a>
+        <a class="nav-link"  href="{{ url_for('index') }}">Home</a>
+        <a class="nav-link" href="{{ url_for('explore') }}">Explore</a>
+        <a class="nav-link" href="{{ url_for('explore') }}">Explore</a>
         {% if current_user.is_anonymous %}
-        <a href="{{ url_for('login') }}">Login</a>
+        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
         {% else %}
-        <a href="{{ url_for('user', username=current_user.username) }}">Profile</a>
-        <a href="{{ url_for('logout') }}">Logout</a>
+        <a class="nav-link" href="{{ url_for('user', username=current_user.username) }}">Profile</a>
+        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
         {% endif %}
     </div>
 
@@ -37,6 +38,6 @@
     <div>Copyright 2020</div>
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
 </body>
 </html>
